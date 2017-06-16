@@ -7,8 +7,13 @@
 """
 import os
 from mongodb_queue import  MongoQueue
+
+#获取文件当前目录
+currentPath =os.path.dirname(os.path.realpath(__file__))
+
 spider_queue = MongoQueue('baiduzhidao', 'all_urls_0612')
 
+spider_queue.clear()
 #遍历文件夹 提取出文件名称和url写入数据库队列
 def eachFile(filepath):
     pathDir = os.listdir(filepath) #  获取当前路径下的文件名，返回list
@@ -17,11 +22,9 @@ def eachFile(filepath):
             print(s)
             getURLs(s)
 
-
-
 def getURLs(filepath):
 
-    with open('/root/lt/day11/scrapy_Pro/baiduZhidao/data/' + filepath, 'r') as f:
+    with open(currentPath + '/urls/' + filepath, 'r') as f:
         url = f.readline()
         while url:
             try:
@@ -38,5 +41,5 @@ def getURLs(filepath):
                 url = f.readline()
 
 if __name__ == '__main__':
-    filePath = '/root/lt/day11/scrapy_Pro/baiduZhidao/data/'
+    filePath = currentPath + '/urls/'
     eachFile(filePath)

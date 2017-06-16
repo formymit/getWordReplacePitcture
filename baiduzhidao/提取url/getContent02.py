@@ -17,8 +17,14 @@ from mongodb_queue import MongoQueue
 import multiprocessing
 import json
 
+#获取文件当前目录
+currentPath =os.path.dirname(os.path.realpath(__file__))
+
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:53.0) Gecko/20100101 Firefox/53.0'
+    "Host": "eclick.baidu.com",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel… Gecko/20100101 Firefox/54.0",
+    "Referer": 	"https://zhidao.baidu.com/ques…d=PU%D4%F5%C3%B4%CF%B4&ie=gb",
+    "Cookie": "BAIDUID=3E29B92E01B4ACF0460CF…88E999055A3F8A630C64834BD6D0"
 }
 
 spider_queue = MongoQueue('baiduzhidao', 'all_urls_0612')
@@ -270,7 +276,7 @@ def getdata(url, belongtoFile):
 
             #数据存入根据belongFile来存
 
-            with open('/Users/iBoy/PycharmProjects/baiduzhidao/baiduzhidao/提取url/all_urls/'+ belongtoFile, 'a') as f:
+            with open(currentPath + '/data/'+ belongtoFile, 'a') as f:
                 f.write(str(data) + '\n')
 
     except Exception as e:
